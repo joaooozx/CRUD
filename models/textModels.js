@@ -1,9 +1,9 @@
 const db = require('../config/db');
 
-const Usuario = {
-    create: (usuario, callback) => {
-        const query = 'INSERT INTO usuarios (usuarioname, password, role) VALUES (?, ?, ?)';
-        db.query(query, [usuario.usuarioname, usuario.password, usuario.role], (err, results) => {
+const Text = {
+    create: (text, callback) => {
+        const query = 'INSERT INTO text (name, telefone, email) VALUES (?, ?, ?)';
+        db.query(query, [text.name, text.telefone, text.email], (err, results) => {
             if (err) {
                 return callback(err);
             }
@@ -12,7 +12,7 @@ const Usuario = {
     },
 
     findById: (id, callback) => {
-        const query = 'SELECT * FROM usuarios WHERE id = ?';
+        const query = 'SELECT * FROM text WHERE id = ?';
         db.query(query, [id], (err, results) => {
             if (err) {
                 return callback(err);
@@ -21,9 +21,9 @@ const Usuario = {
         });
     },
 
-    findByUsuarioname: (usuarioname, callback) => {
-        const query = 'SELECT * FROM usuarios WHERE usuarioname = ?';
-        db.query(query, [usuarioname], (err, results) => {
+    findByEmail: (email, callback) => {
+        const query = 'SELECT * FROM text WHERE email = ?';
+        db.query(query, [email], (err, results) => {
             if (err) {
                 return callback(err);
             }
@@ -31,9 +31,9 @@ const Usuario = {
         });
     },
 
-    update: (id, usuario, callback) => {
-        const query = 'UPDATE usuarios SET usuarioname = ?, password = ?, role = ? WHERE id = ?';
-        db.query(query, [usuario.usuarioname, usuario.password, usuario.role, id], (err, results) => {
+    update: (id, text, callback) => {
+        const query = 'UPDATE text SET name = ?, telefone = ?, email = ? WHERE id = ?';
+        db.query(query, [text.name, text.telefone, text.email, id], (err, results) => {
             if (err) {
                 return callback(err);
             }
@@ -42,7 +42,7 @@ const Usuario = {
     },
 
     delete: (id, callback) => {
-        const query = 'DELETE FROM usuarios WHERE id = ?';
+        const query = 'DELETE FROM text WHERE id = ?';
         db.query(query, [id], (err, results) => {
             if (err) {
                 return callback(err);
@@ -52,7 +52,7 @@ const Usuario = {
     },
 
     getAll: (callback) => {
-        const query = 'SELECT * FROM usuarios';
+        const query = 'SELECT * FROM text';
         db.query(query, (err, results) => {
             if (err) {
                 return callback(err);
@@ -62,14 +62,14 @@ const Usuario = {
     },
 
     searchByName: (name, callback) => {
-        const query = 'SELECT * FROM usuarios WHERE usuarioname LIKE ?';
+        const query = 'SELECT * FROM text WHERE name LIKE ?';
         db.query(query, [`%${name}%`], (err, results) => {
             if (err) {
                 return callback(err);
             }
             callback(null, results);
         });
-    },    
+    },
 };
 
-module.exports = Usuario;
+module.exports = Text;
